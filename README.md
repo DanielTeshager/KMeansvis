@@ -16,8 +16,8 @@ This interactive tool visualizes the K-means clustering algorithm, a popular uns
 1. **Clone the Repository**:
    To get started, clone this repository to your local machine using the following command:
 
-`git clone [your-repository-url]`
-`cd [repository-directory]`
+`git clone [https://github.com/DanielTeshager/KMeansvis.git]`
+`cd [KMeansvis]`
 
 2. **Install Dependencies**:
    Install the necessary Python packages specified in `requirements.txt`:
@@ -25,7 +25,7 @@ This interactive tool visualizes the K-means clustering algorithm, a popular uns
 3. **Run the Application**:
    Launch the application by running:
    `python app.py`
-   This will start the Flask server, and the application should be accessible via a web browser at `http://localhost:5001` or another port as specified in your `app.py`.
+   This will start the Flask server, and the application should be accessible via a web browser at `http://localhost:5002` or another port as specified in your `app.py`.
 
 ## Usage
 
