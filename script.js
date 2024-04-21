@@ -22,13 +22,17 @@ expTrigger.addEventListener("click", function () {
 	}
 });
 
+// control the tables visibility using a toggle button
 toggleTblBtn.addEventListener("click", function () {
-	toggleTableVisibility();
+	const tableContainer = document.querySelector(".table-container");
+	tableContainer.style.display =
+		tableContainer.style.display === "none" ? "block" : "none";
 });
 
 clusterBtn.addEventListener("click", function () {
 	startVisualization();
 });
+
 // Define colors for centroids
 const centroidColors = [
 	"#fbb4ae", // pastel red
@@ -246,10 +250,4 @@ function startVisualization() {
 
 			drawIteration();
 		});
-}
-
-function toggleTableVisibility() {
-	const tableContainer = document.querySelector(".table-container");
-	tableContainer.style.display =
-		tableContainer.style.display === "none" ? "block" : "none";
 }
