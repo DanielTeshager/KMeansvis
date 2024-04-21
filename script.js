@@ -25,6 +25,7 @@ expTrigger.addEventListener("click", function () {
 toggleTblBtn.addEventListener("click", function () {
 	toggleTableVisibility();
 });
+
 clusterBtn.addEventListener("click", function () {
 	startVisualization();
 });
@@ -57,11 +58,12 @@ function startVisualization() {
 	const generateRandom = document.getElementById("generate-random").checked;
 	const numCentroids = parseInt(document.getElementById("num-centroids").value);
 
+	// if gernerate random data is not checked and no file is uploaded the we throw an error message and exit
 	if (!generateRandom && !dataFile) {
 		alert("Please upload a data file or select 'Generate Random Data'.");
 		return;
 	}
-
+	// prepare formData object to be sent to the backend
 	const formData = new FormData();
 	if (generateRandom) {
 		formData.append("generate_random", true);
@@ -70,11 +72,12 @@ function startVisualization() {
 	}
 	formData.append("num_centroids", numCentroids);
 
+	// use fetch to call the backend request handler and send the formData
 	fetch("http://127.0.0.1:5001/kmeans", {
 		method: "POST",
 		body: formData,
 	})
-		.then((response) => response.json())
+		.then((response) => response.json()) // convert response into json format
 		.then((iterations) => {
 			// Clear the file input field
 			document.getElementById("data-file").value = "";
@@ -101,9 +104,8 @@ function startVisualization() {
 					stepTableHeader.innerHTML += `<th>Centroid ${i + 1} Distance</th>`;
 				}
 				stepTableHeader.innerHTML += "<th>Assigned Centroid</th>";
-
-				// Distance Calculation and Assignment
-				iteration.points.forEach((point, pointIndex) => {
+				// w
+				iteration.distances.forEach((distanceRow, pointIndex) => {
 					const row = document.createElement("tr");
 					const pointColor =
 						currentIteration === 0
@@ -112,11 +114,7 @@ function startVisualization() {
 					row.innerHTML = `<td style="background-color: ${pointColor};">Point ${
 						pointIndex + 1
 					}</td>`;
-					iteration.centroids.forEach((centroid) => {
-						const distance = Math.sqrt(
-							Math.pow(point[0] - centroid[0], 2) +
-								Math.pow(point[1] - centroid[1], 2)
-						);
+					distanceRow.forEach((distance) => {
 						row.innerHTML += `<td>${distance.toFixed(2)}</td>`;
 					});
 					row.innerHTML += `<td>Centroid ${
@@ -124,7 +122,6 @@ function startVisualization() {
 					}</td>`;
 					stepTableBody.appendChild(row);
 				});
-
 				// New Centroids
 				iteration.centroids.forEach((centroid, index) => {
 					const row = document.createElement("tr");
